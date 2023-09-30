@@ -28,11 +28,10 @@ void swap_nodes(listint_t **list, listint_t *a, listint_t *b)
  * ascending order using the Cocktail Shaker sort algorithm.
  * @list: A pointer to a pointer to the head of the list.
  */
-
 void cocktail_sort_list(listint_t **list)
 {
 	int swapped = 1;
-	listint_t *start = NULL, *end = NULL;
+	listint_t *start = NULL, *end = NULL, *a = NULL, *b = NULL;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
@@ -43,11 +42,13 @@ void cocktail_sort_list(listint_t **list)
 		for (start = *list; start->next != end; start = start->next)
 		{
 			if (start->n > start->next->n)
-            {
-		    swap_nodes(list, &start, start->next);
-		    print_list((const listint_t *)*list);
-		    swapped = 1;
-	    }
+			{
+				a = start;
+				b = start->next;
+				swap_nodes(list, a, b);
+				print_list((const listint_t *)*list);
+				swapped = 1;
+			}
 		}
 
 		if (!swapped)
@@ -58,7 +59,9 @@ void cocktail_sort_list(listint_t **list)
 		{
 			if (end->n < end->prev->n)
 			{
-				swap_nodes(list, &end, end->prev);
+				a = end;
+				b = end->prev;
+				swap_nodes(list, a, b);
 				print_list((const listint_t *)*list);
 				swapped = 1;
 			}
